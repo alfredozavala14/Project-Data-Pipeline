@@ -14,7 +14,7 @@ def clean_df_titles(df):
     Returns: dataframe with clean titles
     '''
     
-    df.columns = df.columns.str.lower().str.replace(' ','_').str.strip()
+    df.columns = df.columns.str.lower().str.strip().str.replace(' ','_')
     
 def drop_nan_columns(df):
     '''
@@ -26,7 +26,17 @@ def drop_nan_columns(df):
     
     df.dropna(axis=1, how='all', inplace = True)
 
+def drop_columns_by_name(df, col_to_drop):
+    '''
+    Drops columns in dataframes following user input.
     
+    Takes: dataframe and names of columns to be droped
+    Returns: dataframe without columns
+    '''
+    
+    df.drop(col_to_drop, axis = 1, inplace = True)
+
+
 def change_column_name(df, old_col_name, new_col_name):
     '''
     Changes a column name
@@ -48,14 +58,14 @@ def change_df_index(df, new_index_col_name):
     
     df.set_index(new_index_col_name, inplace = True)
 
-def clean_data_set(df, old_col_name = False, new_col_name = False, new_index_col_name = False):
+def clean_data_set(df, old_col_name = False, new_col_name = False, new_index_col_name = False, col_to_drop = False):
     '''
-    Function to clean dataset downloaded from Kaggle. Column names to be changed have to be in two separate
+    Function to clean dataset downloaded from Kaggle. Column names to be changed and dropped have to be in two separate
     lists (old vs. new). Accepts multiple changes at once.
     
-    Takes: dataframe, old_col_name (must be a list), new_col_name (must be a list) and name of column that 
-    will be the new index
-    Returns: dataframe with cleaned titles, no empty columns, new column name(s) and a new index name
+    Takes: dataframe, old_col_name (must be a list), new_col_name (must be a list),  name of column that 
+    will be the new index and column to be dropped (must be a list)
+    Returns: dataframe with cleaned titles, no empty columns, new column name(s), selected columns dropped and a new index name
     '''
     
     # First step is to clean titles
@@ -68,20 +78,32 @@ def clean_data_set(df, old_col_name = False, new_col_name = False, new_index_col
     
     # Third we will change any column names we want to change
     
-    if (not type(old_col_name) == list) and (not type(new_col_name) == list):
-        print('old_col_name and/or new_col_name not type list')
-        pass
-    else:
-        if old_col_name and new_col_name:
-            for i,j in zip(list(old_col_name), list(new_col_name)):
-                change_column_name(df, i, j)
-        else:
+    if old_col_name and new_col_name:
+        if (not type(old_col_name) == list) and (not type(new_col_name) == list):
+            print('old_col_name and/or new_col_name not type list')
             pass
+        else:
+            for i,j in zip(old_col_name, new_col_name):
+                change_column_name(df, i, j)
+    else:
+        pass
     
     # Fourth we will change the index name
     
     if new_index_col_name:
         change_df_index(df, new_index_col_name)
+    else:
+        pass
+
+    #Fifth we will drop columns based on user input
+
+    if col_to_drop:
+        if (not type(col_to_drop) == list):
+            print('col_to_drop not type list')
+            pass
+        else:
+            for k in col_to_drop:
+                drop_columns_by_name(df, k)
     else:
         pass
 
@@ -139,3 +161,15 @@ def print_available_countries_WB():
     print(list_country_ids_name[:20])
     # return list_country_ids         commented to limit very long output when revising
 
+def save_df_as_csv(df, file_name):
+    '''
+    Saves a dataframe as a csv file in the data folder
+    
+    Takes: dataframe and desired file name
+    Returns: none
+    '''
+    
+    df.to_csv(f'{file_name}.csv')
+    new_path = f'../data/'
+    move = f'mv {file_name}.csv {new_path}'
+    return os.system(move)

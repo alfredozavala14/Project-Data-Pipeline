@@ -10,34 +10,49 @@ To do this, we can use a dataset of our choice. I have decided to use a dataset 
 
 ## Hypotheses
 
-Explain hypotheses
+Starting from a dataset than includes a ranking of the countries with the happiest people, I want to test the hypothesis that happiness is much less correlated to monetary data like GDP per capita or social support and more dependant on non-monetary factors like generosity, healthy life expectancy, or freedom. Additionally, I will look for new data in the API and try to find additional correlations with the happiness index.
 
 ## Libraries used
 
 During the project, I have used the following libraries:
-- XX
-- XX
-- XX
-- XX
-- XX
+- Pandas
+- Requests
+- Os
+- Json
+- Datetime
+- Wbdata
+- Matplotlib
+- Seaborn
 
 You can find links to the official documentation of each library at the end, under Links & Resources
 
 ## Work done
 
-Explain work done
+To clean the data, I have used various techniques, including:
+
+- Deleting columns full of null values
+- Deleting duplicated data
+- Changing column names to make them more 'python firendly' (e.g. removing spaces, special characters, etc.)
+- Defining a new index
+
+To enrich the data, I have downloaded information on several indicators and have merged them with the original dataframe. Not all rows had values for every new indicator, but being able to merge all the data in one single dataframe, even if it meant having incomplete data, allowed for easier visualization.
+
+For the visualization process, I have used both Seaborn and Matplotlib to produce different kinds of plots and subplots that allowed ti visualize relationships between the different columns.
 
 ## Deliverables
 
-Explain deliverables
+Deliverables include the cleaned dataset enriched with data from the World Bank API, two jupyter notebooks, one where I carried out the cleaning and enriching process and one including the visualization part of the project, and a .py document with formulas defined for this project.
 
 ## Links & Resources
 
-```
+
 - [Kaggle dataset](https://www.kaggle.com/unsdsn/world-happiness?select=2019.csv)
+- [World Bank API documentation](https://datahelpdesk.worldbank.org/knowledgebase/topics/125589-developer-information)
 - [Pandas documentation](https://pandas.pydata.org/)
-- [Numpy documentation](https://numpy.org/doc/1.18/)
-- [Regex documentation](https://docs.python.org/3/library/re.html)
+- [Requests documentation](https://requests.readthedocs.io/en/master/)
+- [Os documentation](https://docs.python.org/3/library/os.html)
+- [Json documentation](https://docs.python.org/3/library/json.html)
+- [Datetime](https://docs.python.org/3/library/datetime.html)
+- [Wbdata documentation](https://wbdata.readthedocs.io/en/stable/)
 - [Matplotlib documentation](https://matplotlib.org/)
 - [Seaborn documentation](https://seaborn.pydata.org/)
-```

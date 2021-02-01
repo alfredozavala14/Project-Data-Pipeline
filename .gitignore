@@ -1,0 +1,8 @@
+**/.DS_Store
+**/*.ipynb_checkpoints/
+**/__pycache__
+data/2015.csv
+data/2016.csv
+data/2017.csv
+data/2018.csv
+data/2019.csv
